@@ -1,0 +1,33 @@
+[
+  {
+    "id": 101,
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "genre": "Classic",
+    "totalCopies": 5,
+    "copies": [
+      {
+        "accessionNumber": "101-1",
+        "status": "Available"
+      },
+      {
+        "accessionNumber": "101-2",
+        "status": "Checked Out"
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "title": "Java Programming",
+    "author": "John Smith",
+    "genre": "Education",
+    "totalCopies": 1,
+    "isDeleted": false,
+    "copies": [
+      {
+        "accessionNumber": "102-1",
+        "status": "Available"
+      }
+    ]
+  }
+]
