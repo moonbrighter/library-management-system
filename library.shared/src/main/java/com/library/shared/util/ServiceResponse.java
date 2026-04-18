@@ -5,6 +5,10 @@ public class ServiceResponse {
     private String message;
     private String data; // JSON string of data
 
+    public ServiceResponse(boolean success) {
+        this.success = success;
+    }
+
     public ServiceResponse(boolean success, String message, String data) {
         this.success = success;
         this.message = message;
