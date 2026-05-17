@@ -1,4 +1,4 @@
-package com.library.server.rmi;
+package com.library.server.services;
 
 import com.library.shared.rmi.ILibraryService;
 

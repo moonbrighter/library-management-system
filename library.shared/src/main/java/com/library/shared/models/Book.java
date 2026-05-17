@@ -1,6 +1,7 @@
 package com.library.shared.models;
 
 public class Book {
+    String id;
     String title;
     String author;
     String genre;

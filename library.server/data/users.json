@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "username": "admin_ricky",
+    "password": "password123",
+    "contactNumber": "09476935436",
+    "role": "admin",
+    "status": "active"
+  },
+  {
+    "id": 2,
+    "username": "patron_pj",
+    "password": "password123",
+    "contactNumber": "09228420156",
+    "role": "patron",
+    "borrowedBooks": [],
+    "reservedBooks": [],
+    "status": "active"
+  },
+  {
+    "id": 3,
+    "username": "librarian_camille",
+    "password": "password123",
+    "contactNumber": "09499945540",
+    "role": "librarian",
+    "status": "active"
+  }
+]

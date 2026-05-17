@@ -6,9 +6,5 @@ public class User {
     private String password;
     private String contactNumber;
     private String role;
-
-    Book[] borrowedBooks;
-    Book[] reservedBooks;
-
     private String status;
 }
