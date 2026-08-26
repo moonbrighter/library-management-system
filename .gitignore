@@ -1,0 +1,13 @@
+# Temporary compiler list files
+*.lst
+
+# Maven build directory
+target/
+
+# Fleet and JetBrains caches
+.fleet/backend/
+.fleet/storage/
+out/
+
+# Fleet run configuration
+.fleet/run.json
