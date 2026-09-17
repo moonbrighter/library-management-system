@@ -6,19 +6,24 @@ public class AuthInteractor {
 
     private final AuthModel model;
     private final AuthService service = new AuthService();
-    private String token;
 
     public AuthInteractor(AuthModel model) {
         this.model = model;
     }
 
-    public void login() {
-        System.out.println("Successfully logged in");
+    public String login() {
         // 1. After successfully authenticated, set isLoggedIn value to true
-        token = service.authenticate(model.getEmail(), model.getPassword());
+        String token = service.authenticate(model.getEmail(), model.getPassword());
+        System.out.println("Successfully logged in");
+        return token;
     }
 
-    public void updateModelAfterLogin() {
+    public void logout() {
+        Session.getInstance().clearToken();
+        model.setIsLoggedIn(false);
+    }
+
+    public void updateModelAfterLogin(String token) {
         if (token != null) {
             Session.getInstance().setToken(token);
             model.setIsLoggedIn(true);

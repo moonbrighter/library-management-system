@@ -8,10 +8,11 @@ import javafx.util.Builder;
 public class PatronMainController {
     private final Builder<Region> viewBuilder;
 
-    public PatronMainController() {
+    public PatronMainController(Runnable logoutHandler) {
         PatronMainModel model = new PatronMainModel();
         viewBuilder = new PatronMainViewBuilder(
                 model,
+                logoutHandler,
                 new CatalogController().getView()
         );
     }

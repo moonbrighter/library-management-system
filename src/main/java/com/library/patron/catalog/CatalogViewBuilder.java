@@ -1,5 +1,6 @@
 package com.library.patron.catalog;
 
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.util.Builder;
 
@@ -14,7 +15,7 @@ public class CatalogViewBuilder implements Builder<Region> {
 
     @Override
     public Region build() {
-        return null;
+        return new BorderPane();
     }
 
     private void createContent() {

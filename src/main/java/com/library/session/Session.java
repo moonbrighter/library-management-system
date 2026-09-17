@@ -19,6 +19,10 @@ public class Session {
         return token;
     }
 
+    public void clearToken() {
+        token = null;
+    }
+
     public void setToken(String token) {
         this.token = token;
     }
