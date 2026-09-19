@@ -50,6 +50,7 @@ public class PatronMainViewBuilder implements Builder<Region> {
     }
 
     private Node createCenter() {
+        System.out.println("Catalog Visible Property:" + model.catalogSelectedProperty());
         catalogView.visibleProperty().bind(model.catalogSelectedProperty());
 
         StackPane result = new StackPane(catalogView);

@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 
 public class PatronMainModel {
 
-    private final BooleanProperty catalogSelected = new SimpleBooleanProperty(false);
+    private final BooleanProperty catalogSelected = new SimpleBooleanProperty(true);
 
     public PatronMainModel() {}
 

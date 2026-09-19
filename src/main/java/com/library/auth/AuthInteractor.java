@@ -21,6 +21,7 @@ public class AuthInteractor {
     public void logout() {
         Session.getInstance().clearToken();
         model.setIsLoggedIn(false);
+        System.out.println("Successfully logged out");
     }
 
     public void updateModelAfterLogin(String token) {

@@ -1,5 +1,5 @@
 package com.library.patron.catalog;
 
-public class CatalogModel {
-
+public class CatalogInteractor {
+    
 }
