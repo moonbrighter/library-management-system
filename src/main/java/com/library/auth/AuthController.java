@@ -28,7 +28,7 @@ public class AuthController {
         Task<String> fetchTask = new Task<>() {
 
             @Override
-            protected String call() throws Exception {
+            protected String call() {
                 return interactor.login();
             }
         };

@@ -30,7 +30,7 @@ public class AuthModel {
 
     public void setPassword(String email) {
         this.password.set(email);
-    }
+}
 
     public StringProperty pwProperty() {
         return password;

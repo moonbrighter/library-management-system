@@ -6,15 +6,25 @@ import javafx.scene.layout.Region;
 import javafx.util.Builder;
 
 public class PatronMainController {
+    private final PatronMainModel model;
     private final Builder<Region> viewBuilder;
+    private final CatalogController catalogController;
 
     public PatronMainController(Runnable logoutHandler) {
-        PatronMainModel model = new PatronMainModel();
+        model = new PatronMainModel();
+        catalogController = new CatalogController();
         viewBuilder = new PatronMainViewBuilder(
                 model,
                 logoutHandler,
-                new CatalogController().getView()
+                catalogController.getView()
         );
+
+        model.catalogSelectedProperty()
+                .addListener((obs, oldVal, isSelected) -> {
+                    if (isSelected) {
+                        catalogController.refresh();
+                    }
+                });
     }
 
     public Region getView() {

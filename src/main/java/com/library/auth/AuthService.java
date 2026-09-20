@@ -1,6 +1,6 @@
 package com.library.auth;
 
-import com.library.dao.UserDAO;
+import com.library.database.dao.UserDAO;
 
 public class AuthService {
 

@@ -11,10 +11,10 @@ import java.util.List;
 
 public class CatalogViewBuilder implements Builder<Region> {
 
-    private final ObservableList<BookModel> tableItems = FXCollections.observableArrayList();
+    private final ObservableList<BookModel> tableItems;
 
-    public CatalogViewBuilder(List<BookModel> model) {
-        tableItems.setAll(model);
+    public CatalogViewBuilder(ObservableList<BookModel> tableItems) {
+        this.tableItems = tableItems;
     }
 
     @Override
