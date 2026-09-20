@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CatalogController {
 
-    private CatalogViewBuilder viewBuilder;
+    private final CatalogViewBuilder viewBuilder;
     private CatalogInteractor interactor;
 
     public CatalogController() {
