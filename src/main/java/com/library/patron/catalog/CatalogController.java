@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.scene.layout.Region;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CatalogController {
@@ -15,8 +14,12 @@ public class CatalogController {
 
     public CatalogController() {
         interactor = new CatalogInteractor();
-        viewBuilder = new CatalogViewBuilder(tableItems);
+        viewBuilder = new CatalogViewBuilder(tableItems, this::borrowBook);
         loadData();
+    }
+
+    private void borrowBook() {
+        System.out.println("Book borrowed");
     }
 
     private void loadData() {
@@ -35,7 +38,7 @@ public class CatalogController {
         });
         fetchTask.setOnFailed(evt -> {
             System.out.println("Fetch failed");
-            fetchTask.getException().printStackTrace();
+            throw new RuntimeException();
         });
 
         Thread fetchThread = new Thread(fetchTask);

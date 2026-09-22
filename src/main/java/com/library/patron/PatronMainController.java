@@ -1,6 +1,5 @@
 package com.library.patron;
 
-import com.library.auth.AuthController;
 import com.library.patron.catalog.CatalogController;
 import javafx.scene.layout.Region;
 import javafx.util.Builder;
