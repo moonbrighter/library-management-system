@@ -10,8 +10,6 @@ public class AuthController {
     private final Builder<Region> viewBuilder;
     private final AuthInteractor interactor;
     private final PatronMainController patronMainController;
-
-    Runnable onLoginSuccess;
     public AuthController() {
         AuthModel model = new AuthModel();
         interactor = new AuthInteractor(model);
