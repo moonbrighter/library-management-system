@@ -1,6 +1,7 @@
 package com.library.patron.catalog;
 
 import com.library.patron.borrow.BorrowDialogViewBuilder;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -13,6 +14,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Builder;
+
+import java.util.function.Function;
 
 public class CatalogViewBuilder implements Builder<Region> {
 
@@ -28,29 +31,30 @@ public class CatalogViewBuilder implements Builder<Region> {
     public Region build() {
         TableView<BookModel> result = new TableView<>();
 
-        TableColumn<BookModel, Integer> bookIdColumn = new TableColumn<>("ID");
-        bookIdColumn.setCellValueFactory(cdf -> cdf.getValue().bookIdProperty());
-        result.getColumns().add(bookIdColumn);
+        result.getColumns().add(createDataColumn("ISBN", BookModel::isbnProperty));
+        result.getColumns().add(createDataColumn("Title", BookModel::titleProperty));
+        result.getColumns().add(createDataColumn("Author", BookModel::authorProperty));
+        result.getColumns().add(createDataColumn("Genre", BookModel::genreProperty));
+        result.getColumns().add(createButtonColumn("Borrow"));
 
-        TableColumn<BookModel, String> isbnColumn = new TableColumn<>("ISBN");
-        isbnColumn.setCellValueFactory(cdf -> cdf.getValue().isbnProperty());
-        result.getColumns().add(isbnColumn);
+        result.setItems(tableItems);
+        result.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+        return result;
+    }
 
-        TableColumn<BookModel, String> titleColumn = new TableColumn<>("Title");
-        titleColumn.setCellValueFactory(cdf -> cdf.getValue().titleProperty());
-        result.getColumns().add(titleColumn);
+    private TableColumn<BookModel, String> createDataColumn(
+            String label,
+            Function<BookModel, ObservableValue<String>> propertyExtractor
+            ) {
+        TableColumn<BookModel, String> column = new TableColumn<>(label);
+        column.setCellValueFactory(cdf -> propertyExtractor.apply(cdf.getValue()));
+        return column;
+    }
 
-        TableColumn<BookModel, String> authorColumn = new TableColumn<>("Author");
-        authorColumn.setCellValueFactory(cdf -> cdf.getValue().authorProperty());
-        result.getColumns().add(authorColumn);
-
-        TableColumn<BookModel, String> genreColumn = new TableColumn<>("Genre");
-        genreColumn.setCellValueFactory(cdf -> cdf.getValue().genreProperty());
-        result.getColumns().add(genreColumn);
-
-        TableColumn<BookModel, Void> actionColumn = new TableColumn<>();
-        actionColumn.setCellFactory(col -> new TableCell<>() {
-            private final Button borrowButton = new Button("Borrow");
+    private TableColumn<BookModel, Void> createButtonColumn(String label) {
+        TableColumn<BookModel, Void> column = new TableColumn<>();
+        column.setCellFactory(col -> new TableCell<>() {
+            private final Button borrowButton = new Button(label);
 
             {
                 borrowButton.setOnAction(evt -> {
@@ -66,11 +70,7 @@ public class CatalogViewBuilder implements Builder<Region> {
                 setGraphic(empty ? null : borrowButton);
             }
         });
-        result.getColumns().add(actionColumn);
-
-        result.setItems(tableItems);
-        result.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
-        return result;
+        return column;
     }
 
     private void createBorrowDialog(Window owner, BookModel book, Runnable borrowHandler) {
@@ -82,5 +82,4 @@ public class CatalogViewBuilder implements Builder<Region> {
         dialogStage.setScene(new Scene(content));
         dialogStage.showAndWait();
     }
-
 }
