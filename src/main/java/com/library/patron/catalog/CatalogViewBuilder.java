@@ -60,7 +60,7 @@ public class CatalogViewBuilder implements Builder<Region> {
                 borrowButton.setOnAction(evt -> {
                     BookModel book = getTableRow().getItem();
                     Window owner = ((Node) evt.getSource()).getScene().getWindow();
-                    createBorrowDialog(owner, book, borrowHandler);
+                    showBorrowDialog(owner, book, borrowHandler);
                 });
             }
 
@@ -73,7 +73,8 @@ public class CatalogViewBuilder implements Builder<Region> {
         return column;
     }
 
-    private void createBorrowDialog(Window owner, BookModel book, Runnable borrowHandler) {
+    // TODO: Don't peek into parent window
+    private void showBorrowDialog(Window owner, BookModel book, Runnable borrowHandler) {
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.initOwner(owner);

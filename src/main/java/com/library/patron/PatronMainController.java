@@ -1,21 +1,25 @@
 package com.library.patron;
 
 import com.library.patron.catalog.CatalogController;
+import com.library.patron.profile_management.ProfileManController;
 import javafx.scene.layout.Region;
 import javafx.util.Builder;
 
 public class PatronMainController {
-    private final PatronMainModel model;
-    private final Builder<Region> viewBuilder;
-    private final CatalogController catalogController;
 
-    public PatronMainController(Runnable logoutHandler) {
-        model = new PatronMainModel();
-        catalogController = new CatalogController();
+    private final Builder<Region> viewBuilder;
+    private final ProfileManController profileManController;
+
+    public PatronMainController(Runnable logoutHandler, ProfileManController profileManController) {
+        PatronMainModel model = new PatronMainModel();
+        CatalogController catalogController = new CatalogController();
+        this.profileManController = profileManController;
+
         viewBuilder = new PatronMainViewBuilder(
                 model,
                 logoutHandler,
-                catalogController.getView()
+                catalogController.getView(),
+                profileManController.getView()
         );
 
         model.catalogSelectedProperty()

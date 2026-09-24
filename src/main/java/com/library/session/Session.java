@@ -1,10 +1,11 @@
 package com.library.session;
 
+import com.library.services.User;
+
 public class Session {
 
     private static Session instance;
-
-    private String token;
+    private static User currentUser;
 
     private Session() {}
 
@@ -15,15 +16,24 @@ public class Session {
         return instance;
     }
 
-    public String getToken() {
-        return token;
+    public void startSession(User user) {
+        System.out.println( "Starting session for user: " + user.getUsername());
+        currentUser = user;
     }
 
-    public void clearToken() {
-        token = null;
+    public void endSession() {
+        currentUser = null;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public boolean isActive() {
+        return currentUser != null;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User user) {
+        currentUser = user;
     }
 }

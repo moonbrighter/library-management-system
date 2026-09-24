@@ -7,21 +7,21 @@ import javafx.beans.property.StringProperty;
 
 public class AuthModel {
 
-    private final StringProperty email = new SimpleStringProperty("");
+    private final StringProperty username = new SimpleStringProperty("");
     private final StringProperty password = new SimpleStringProperty("");
     private final BooleanProperty isLoggedIn = new SimpleBooleanProperty(false);
     private final StringProperty errorMessage = new SimpleStringProperty("");
 
-    public String getEmail() {
-        return email.get();
+    public String getUsername() {
+        return username.get();
     }
 
-    public void setEmail(String email) {
-        this.email.set(email);
+    public void setUsername(String username) {
+        this.username.set(username);
     }
 
-    public StringProperty emailProperty() {
-        return email;
+    public StringProperty usernameProperty() {
+        return username;
     }
 
     public String getPassword() {

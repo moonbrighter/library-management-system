@@ -11,10 +11,8 @@ public class LibraryApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Label label = new Label("Library Management System - Setup Successful!");
-        StackPane root = new StackPane(label);
-
         stage.setTitle("Library Management System");
+
         stage.setScene(new Scene(new AuthController().getView(), 640, 480));
         stage.show();
     }

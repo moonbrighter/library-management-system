@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 public class PatronMainModel {
 
     private final BooleanProperty catalogSelected = new SimpleBooleanProperty(true);
+    private final BooleanProperty profileSelected = new SimpleBooleanProperty(false);
 
     public PatronMainModel() {}
 
@@ -19,5 +20,17 @@ public class PatronMainModel {
 
     public BooleanProperty catalogSelectedProperty() {
         return catalogSelected;
+    }
+
+    public boolean isProfileSelected() {
+        return profileSelected.get();
+    }
+
+    public void setProfileSelected(boolean bool) {
+        profileSelected.set(bool);
+    }
+
+    public BooleanProperty profileSelectedProperty() {
+        return profileSelected;
     }
 }
