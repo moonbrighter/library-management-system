@@ -13,18 +13,16 @@ public class AuthViewBuilder implements Builder<Region> {
 
     private final AuthModel model;
     private final Runnable loginHandler;
-    private final Region mainView;
 
-    public AuthViewBuilder(AuthModel model, Runnable loginHandler, Region mainView) {
+    public AuthViewBuilder(AuthModel model, Runnable loginHandler) {
         this.model = model;
         this.loginHandler = loginHandler;
-        this.mainView = mainView;
     }
 
     @Override
     public Region build() {
         StackPane root = new StackPane();
-        root.getChildren().addAll(boundAuthView(), boundMainView());
+        root.getChildren().addAll(boundAuthView());
         return root;
     }
 
@@ -37,12 +35,6 @@ public class AuthViewBuilder implements Builder<Region> {
         result.visibleProperty().bind(model.isLoggedInProperty().not());
         result.managedProperty().bind(model.isLoggedInProperty().not());
         return result;
-    }
-
-    private Node boundMainView() {
-        mainView.visibleProperty().bindBidirectional(model.isLoggedInProperty());
-        mainView.managedProperty().bindBidirectional(model.isLoggedInProperty());
-        return mainView;
     }
 
     private Node boundTextField(StringProperty property) {

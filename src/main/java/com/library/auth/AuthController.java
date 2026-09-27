@@ -9,17 +9,15 @@ public class AuthController {
 
     private final Builder<Region> viewBuilder;
     private final AuthInteractor interactor;
-    private final PatronMainController patronMainController;
-    public AuthController() {
-        AuthModel model = new AuthModel();
-        interactor = new AuthInteractor(model);
-        patronMainController = new PatronMainController(this::logout);
+    private final Runnable mainViewSwapper;
+    private final Runnable authViewSwapper;
 
-        viewBuilder = new AuthViewBuilder(
-                model,
-                this::login,
-                patronMainController.getView()
-        );
+    public AuthController(Runnable mainViewSwapper, Runnable authViewSwapper) {
+        var model = new AuthModel();
+        interactor = new AuthInteractor(model);
+        viewBuilder = new AuthViewBuilder(model, this::login);
+        this.mainViewSwapper = mainViewSwapper;
+        this.authViewSwapper = authViewSwapper;
     }
 
     private void login() {
@@ -30,14 +28,30 @@ public class AuthController {
                 return interactor.login();
             }
         };
-        fetchTask.setOnSucceeded(evt -> interactor.updateModelAfterLogin(fetchTask.getValue()));
+        fetchTask.setOnSucceeded(evt -> {
+            interactor.updateModelAfterLogin(fetchTask.getValue());
+            mainViewSwapper.run();
+        });
 
         Thread fetchThread = new Thread(fetchTask);
         fetchThread.start();
     }
 
     public void logout() {
-        interactor.logout();
+        Task<Void> fetchTask = new Task<>() {
+
+            @Override
+            protected Void call() {
+                interactor.logout();
+                return null;
+            }
+        };
+        fetchTask.setOnSucceeded(evt -> {
+            authViewSwapper.run();
+        });
+
+        Thread fetchThread = new Thread(fetchTask);
+        fetchThread.start();
     }
 
     public Region getView() {
