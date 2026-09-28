@@ -1,28 +1,28 @@
 package com.library.patron.catalog;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.scene.layout.Region;
 
 import java.util.List;
 
 public class CatalogController {
+
+    private final CatalogModel model;
     private final CatalogViewBuilder viewBuilder;
-    private final ObservableList<BookModel> tableItems = FXCollections.observableArrayList();
     private final CatalogInteractor interactor;
 
     public CatalogController() {
+        model = new CatalogModel();
         interactor = new CatalogInteractor();
-        viewBuilder = new CatalogViewBuilder(tableItems, this::borrowBook);
-        loadData();
+        viewBuilder = new CatalogViewBuilder(model.getBooks(), this::borrowBook);
+        displayAvailableBooks();
     }
 
     private void borrowBook() {
         System.out.println("Book borrowed");
     }
 
-    private void loadData() {
+    private void displayAvailableBooks() {
         System.out.println("Loading data...");
         Task<List<BookModel>> fetchTask = new Task<>() {
 
@@ -34,7 +34,7 @@ public class CatalogController {
         fetchTask.setOnSucceeded(evt -> {
             List<BookModel> books = fetchTask.getValue();
             System.out.println("Fetched " + books.size() + " books");
-            tableItems.setAll(books);
+            model.setBooks(books);
         });
         fetchTask.setOnFailed(evt -> {
             System.out.println("Fetch failed");
@@ -47,7 +47,7 @@ public class CatalogController {
 
     public void refresh() {
         System.out.println("Refreshing data...");
-        loadData();
+        displayAvailableBooks();
     }
 
     public Region getView() {

@@ -5,15 +5,13 @@ import javafx.scene.layout.Region;
 import javafx.util.Builder;
 
 public class PatronMainController {
-    private final PatronMainModel model;
     private final Builder<Region> viewBuilder;
-    private final CatalogController catalogController;
 
     public PatronMainController(Runnable logoutHandler) {
-        model = new PatronMainModel();
-        catalogController = new CatalogController();
+        var catalogController = new CatalogController();
+        var model = new PatronMainModel();
         viewBuilder = new PatronMainViewBuilder(
-                model,
+            model,
                 logoutHandler,
                 catalogController.getView()
         );

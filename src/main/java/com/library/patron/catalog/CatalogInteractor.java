@@ -1,8 +1,5 @@
 package com.library.patron.catalog;
 
-import com.library.services.Book;
-import com.library.services.BookService;
-
 import java.sql.SQLException;
 import java.util.List;
 

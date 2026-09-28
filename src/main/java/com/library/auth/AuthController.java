@@ -1,7 +1,6 @@
 package com.library.auth;
 
 import com.library.domainobjects.User;
-import com.library.patron.PatronMainController;
 import javafx.concurrent.Task;
 import javafx.scene.layout.Region;
 import javafx.util.Builder;
@@ -47,9 +46,7 @@ public class AuthController {
                 return null;
             }
         };
-        fetchTask.setOnSucceeded(evt -> {
-            authViewSwapper.run();
-        });
+        fetchTask.setOnSucceeded(evt -> authViewSwapper.run());
 
         Thread fetchThread = new Thread(fetchTask);
         fetchThread.start();

@@ -1,10 +1,18 @@
-package com.library.services;
+package com.library.patron.catalog;
 
 public class Book {
     private int bookId;
     private String isbn;
     private String title;
     private String author;
+
+    public Book(int bookId, String isbn, String title, String author, String genre) {
+        this.bookId = bookId;
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+    }
 
     public int getBookId() {
         return bookId;
@@ -49,14 +57,4 @@ public class Book {
     private String genre;
 
     public Book() {}
-
-    public Book(int bookId, String isbn, String title, String author, String genre) {
-        this.bookId = bookId;
-        this.isbn = isbn;
-        this.title = title;
-        this.author = author;
-        this.genre = genre;
-    }
-
-    
 }

@@ -1,4 +1,4 @@
-package com.library.services;
+package com.library.patron.catalog;
 
 import com.library.database.dao.BookDAO;
 import com.library.database.dao.dto.BookDTO;
