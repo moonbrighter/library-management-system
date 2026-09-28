@@ -1,10 +1,11 @@
 package com.library.session;
 
+import com.library.domainobjects.User;
+
 public class Session {
 
     private static Session instance;
-
-    private String token;
+    private User currentUser;
 
     private Session() {}
 
@@ -15,15 +16,15 @@ public class Session {
         return instance;
     }
 
-    public String getToken() {
-        return token;
+    public void startSession(User user) {
+        this.currentUser = user;
     }
 
-    public void clearToken() {
-        token = null;
+    public User getCurrentUser() {
+        return currentUser;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void endSession() {
+        this.currentUser = null;
     }
 }

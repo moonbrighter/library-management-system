@@ -1,5 +1,6 @@
 package com.library.auth;
 
+import com.library.domainobjects.User;
 import com.library.patron.PatronMainController;
 import javafx.concurrent.Task;
 import javafx.scene.layout.Region;
@@ -21,10 +22,10 @@ public class AuthController {
     }
 
     private void login() {
-        Task<String> fetchTask = new Task<>() {
+        Task<User> fetchTask = new Task<>() {
 
             @Override
-            protected String call() {
+            protected User call() {
                 return interactor.login();
             }
         };

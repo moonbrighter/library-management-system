@@ -1,6 +1,6 @@
-package com.library.database.dao.dto;
+package com.library.domainobjects;
 
-public class UserDTO {
+public class User {
     String id;
     String role;
     String username;
@@ -9,7 +9,7 @@ public class UserDTO {
     String hashedPw;
     String createdAt;
 
-    public UserDTO(
+    public User(
             String id,
             String role,
             String username,
@@ -69,6 +69,10 @@ public class UserDTO {
 
     public String getHashedPw() {
         return hashedPw;
+    }
+
+    public String getWholeName() {
+        return firstName + " " + lastName;
     }
 
     public void setHashedPw(String hashedPw) {

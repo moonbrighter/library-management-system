@@ -2,7 +2,6 @@ package com.library.database.dao;
 
 import com.library.database.Database;
 import com.library.database.dao.dto.BookDTO;
-import com.library.services.Book;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

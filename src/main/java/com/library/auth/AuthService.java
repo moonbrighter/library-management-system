@@ -1,38 +1,38 @@
 package com.library.auth;
 
 import com.library.database.dao.UserDAO;
+import com.library.database.dao.dto.UserDTO;
+import com.library.domainobjects.User;
 
 public class AuthService {
 
-    private UserDAO dao;
+    private UserDAO dao = new UserDAO();
 
     public AuthService() {}
 
-    public String authenticate(String email, String pw) {
-        /*
-         * 1. Hash password and get corresponding record from database using email
-         *
-         * hashedPassword = hash(pw)
-         * user = dao.getUser(email)
-         *
-         * 2. Compare hashPassword() to database password.
-         *    If valid, create and add token to client cache and database.
-         *
-         * String token = "";
-         * if (user.getPassword() == hashPassword()) {
-         *    String token == createToken()
-         * }
-         * Session.addToken(token)
-         * dao.addToken(email, token)
-         */
-        return "token"; // Change this to return an actual token
+    public User authenticate(String username, String pw) {
+        String hashedPw = hash(pw);
+        User user = toDomain(dao.getUser(username));
+        if (username.equals(user.getUsername()) && hashedPw.equals(user.getHashedPw())) {
+            return user;
+        } else {
+            return null;
+        }
     }
 
     private String hash(String pw) {
-        return null;
+        return pw;
     }
 
-    private String createToken() {
-        return null;
+    private User toDomain(UserDTO dto) {
+        return new User(
+                dto.getId(),
+                dto.getRole(),
+                dto.getUsername(),
+                dto.getFirstName(),
+                dto.getLastName(),
+                dto.getHashedPw(),
+                dto.getCreatedAt()
+        );
     }
 }

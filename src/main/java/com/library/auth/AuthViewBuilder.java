@@ -28,7 +28,7 @@ public class AuthViewBuilder implements Builder<Region> {
 
     private Node boundAuthView() {
         VBox result = new VBox(
-                boundTextField(model.emailProperty()),
+                boundTextField(model.usernameProperty()),
                 boundTextField(model.pwProperty()),
                 loginButton()
         );
