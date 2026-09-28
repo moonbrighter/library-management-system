@@ -1,0 +1,62 @@
+package com.library.client.mvci.auth;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+public class AuthModel {
+
+    private final StringProperty username = new SimpleStringProperty("");
+    private final StringProperty password = new SimpleStringProperty("");
+    private final BooleanProperty isLoggedIn = new SimpleBooleanProperty(false);
+    private final StringProperty errorMessage = new SimpleStringProperty("");
+
+    public String getUsername() {
+        return username.get();
+    }
+
+    public void setUsername(String username) {
+        this.username.set(username);
+    }
+
+    public StringProperty usernameProperty() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password.get();
+    }
+
+    public void setPassword(String pw) {
+        this.password.set(pw);
+}
+
+    public StringProperty pwProperty() {
+        return password;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn.get();
+    }
+
+    public void setIsLoggedIn(boolean bool) {
+        this.isLoggedIn.set(bool);
+    }
+
+    public BooleanProperty isLoggedInProperty() {
+        return isLoggedIn;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage.get();
+    }
+
+    public void setErrorMessage(String message) {
+        this.errorMessage.set(message);
+    }
+
+    public StringProperty errorMessageProperty() {
+        return errorMessage;
+    }
+}
