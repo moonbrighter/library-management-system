@@ -71,7 +71,7 @@ public class User {
         return hashedPw;
     }
 
-    public String getWholeName() {
+    public String getFullName() {
         return firstName + " " + lastName;
     }
 

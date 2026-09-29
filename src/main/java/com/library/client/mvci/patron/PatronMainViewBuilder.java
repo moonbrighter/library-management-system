@@ -1,5 +1,6 @@
 package com.library.client.mvci.patron;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -16,61 +17,64 @@ public class PatronMainViewBuilder implements Builder<Region> {
     PatronMainModel model;
 
     private final Region catalogView;
+    private final Region profileView;
     private final Runnable logoutHandler;
 
     public PatronMainViewBuilder(
             PatronMainModel model,
             Runnable logoutHandler,
-            Region catalogView
+            Region catalogView,
+            Region profileView
     ) {
         this.model = model;
         this.logoutHandler = logoutHandler;
         this.catalogView = catalogView;
+        this.profileView = profileView;
     }
 
     @Override
     public Region build() {
         BorderPane result = new BorderPane();
-        result.setLeft(createButtons());
-        result.setCenter(createCenter());
+        result.setLeft(sidebar());
+        result.setCenter(catalog());
         return result;
     }
 
-    private Node createButtons() {
-        Button catalogButton = new Button("Catalog");
-        Button logoutButton = new Button("Logout");
+    private Node sidebar() {
+        ToggleGroup group = new ToggleGroup();
 
-        catalogButton.setOnAction(evt -> model.setCatalogSelected(true));
-        logoutButton.setOnAction(evt -> logoutHandler.run());
+        ToggleButton catalogBtn = createToggle("Catalog", group, model.catalogSelectedProperty());
+        ToggleButton profileBtn = createToggle("Profile", group, model.profileSelectedProperty());
 
-        catalogButton.getStyleClass().add("nav-button");
-        logoutButton.getStyleClass().add("nav-button");
+        group.selectedToggleProperty().addListener((obs, oldT, newT) -> {
+            if (newT == null) oldT.setSelected(true);
+        });
 
-        model.catalogSelectedProperty().addListener((obs, oldVal, newVal) ->
-                updateActiveStyle(catalogButton, newVal)
-        );
-        updateActiveStyle(catalogButton, model.catalogSelectedProperty().get());
-
-        VBox result = new VBox(20, catalogButton, logoutButton);
+        VBox result = new VBox(20, catalogBtn, profileBtn, createButton("Logout", logoutHandler));
         result.setPadding(new Insets(14));
         return result;
     }
 
-    private void updateActiveStyle(Button button, boolean active) {
-        if (active) {
-            if (!button.getStyleClass().contains("nav-button-active")) {
-                button.getStyleClass().add("nav-button-active");
-            }
-        } else {
-            button.getStyleClass().remove("nav-button-active");
-        }
+    private ToggleButton createToggle(String label, ToggleGroup group, BooleanProperty selected) {
+        ToggleButton result = new ToggleButton(label);
+        result.getStyleClass().add("nav-button");
+        result.setToggleGroup(group);
+        result.selectedProperty().bindBidirectional(selected);
+        return result;
     }
 
-    private Node createCenter() {
-        System.out.println("Catalog Visible Property:" + model.catalogSelectedProperty());
-        catalogView.visibleProperty().bind(model.catalogSelectedProperty());
-
-        StackPane result = new StackPane(catalogView);
+    private Node createButton(String label, Runnable evt) {
+        Button result = new Button(label);
+        result.getStyleClass().add("nav-button");
+        result.setOnAction(e -> evt.run());
         return result;
+    }
+
+    private Node catalog() {
+        System.out.println("Catalog Visible Property:" + model.catalogSelectedProperty());
+
+        catalogView.visibleProperty().bind(model.catalogSelectedProperty());
+        profileView.visibleProperty().bind(model.profileSelectedProperty());
+        return new StackPane(catalogView, profileView);
     }
 }
