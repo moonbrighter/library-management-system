@@ -12,13 +12,12 @@ public class ProfileController {
     private final ProfileInteractor interactor;
 
     public ProfileController() {
-        this.model = new ProfileModel();
-        this.viewBuilder = new ProfileViewBuilder(model);
-        this.interactor = new ProfileInteractor(model);
+        model = new ProfileModel();
+        interactor = new ProfileInteractor(model);
+        viewBuilder = new ProfileViewBuilder(model);
     }
 
     private void loadProfileDetails() {
-        System.out.println("Loading data...");
         Task<User> fetchTask = new Task<>() {
 
             @Override
@@ -26,16 +25,14 @@ public class ProfileController {
                 return interactor.fetchProfile();
             }
         };
-        fetchTask.setOnSucceeded(evt -> updateModel(fetchTask.getValue()));
+        fetchTask.setOnSucceeded(evt -> {
+            interactor.updateModel(fetchTask.getValue());
+            System.out.println(model.getName());
+        });
+        fetchTask.setOnFailed(evt -> fetchTask.getException().printStackTrace());
 
         Thread fetchThread = new Thread(fetchTask);
         fetchThread.start();
-    }
-
-    private void updateModel(User user) {
-        model.setName(user.getFullName());
-        model.setUsername(user.getUsername());
-        model.setMemberSince(user.getCreatedAt());
     }
 
     public Region getView() {

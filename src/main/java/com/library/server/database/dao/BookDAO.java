@@ -12,14 +12,16 @@ import java.util.List;
 
 public class BookDAO {
 
+    // TODO: Catch exception
     public List<BookDTO> getBooks() throws SQLException {
+        String query = "SELECT DISTINCT books.book_id, isbn, title, author, genre" +
+                       " FROM books INNER JOIN book_copies ON books.book_id = book_copies.book_id " +
+                       "WHERE book_copies.status = 'AVAILABLE'";
+
         Connection con = Database.getInstance().getConnection();
         Statement statement = con.createStatement();
         List<BookDTO> books = new ArrayList<>();
 
-        String query = "SELECT DISTINCT books.book_id, isbn, title, author, genre" +
-                       " FROM books INNER JOIN book_copies ON books.book_id = book_copies.book_id " +
-                       "WHERE book_copies.status = 'AVAILABLE'";
         ResultSet rs = statement.executeQuery(query);
 
         while (rs.next()) {

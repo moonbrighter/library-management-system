@@ -21,6 +21,10 @@ public class Session {
     }
 
     public User getCurrentUser() {
+        if (currentUser == null) {
+            System.out.println("User cannot be found.");
+            return null;
+        }
         return currentUser;
     }
 

@@ -50,7 +50,12 @@ public class PatronMainViewBuilder implements Builder<Region> {
             if (newT == null) oldT.setSelected(true);
         });
 
-        VBox result = new VBox(20, catalogBtn, profileBtn, createButton("Logout", logoutHandler));
+        VBox result = new VBox(
+                20,
+                catalogBtn,
+                profileBtn,
+                createButton("Logout", logoutHandler)
+        );
         result.setPadding(new Insets(14));
         return result;
     }

@@ -25,6 +25,7 @@ public class AuthInteractor {
 
     public void updateModelAfterLogin(User user) {
         if (user != null) {
+            System.out.println("Successfully logged in " + user.getUsername());
             Session.getInstance().startSession(user);
             model.setIsLoggedIn(true);
         } else {

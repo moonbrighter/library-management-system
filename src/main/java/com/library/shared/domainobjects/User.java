@@ -1,5 +1,8 @@
 package com.library.shared.domainobjects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     String id;
     String role;
@@ -8,6 +11,7 @@ public class User {
     String lastName;
     String hashedPw;
     String createdAt;
+    List<Loan> loans = new ArrayList<>();
 
     public User(
             String id,
@@ -85,5 +89,13 @@ public class User {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Loan> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(List<Loan> loans) {
+        this.loans = loans;
     }
 }

@@ -26,7 +26,9 @@ public class PatronMainController {
 
     private void refreshWhenSelected(BooleanProperty selected, Runnable refresh) {
         selected.addListener((obs, oldVal, isSelected) -> {
-            if (isSelected) refresh.run();
+            if (isSelected) {
+                refresh.run();
+            }
         });
     }
 
