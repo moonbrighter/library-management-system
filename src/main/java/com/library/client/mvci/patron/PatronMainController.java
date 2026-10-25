@@ -1,6 +1,7 @@
 package com.library.client.mvci.patron;
 
 import com.library.client.mvci.patron.catalog.CatalogController;
+import com.library.client.mvci.patron.catalog.CatalogModel;
 import com.library.client.mvci.patron.profile.ProfileController;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.layout.Region;
@@ -10,18 +11,20 @@ public class PatronMainController {
     private final Builder<Region> viewBuilder;
 
     public PatronMainController(Runnable logoutHandler) {
-        var catalogController = new CatalogController();
+        var catalogModel = new CatalogModel();
+        var catalogController = new CatalogController(catalogModel);
+
         var profileController = new ProfileController();
-        var model = new PatronMainModel();
+        var patronMainModel = new PatronMainModel();
         viewBuilder = new PatronMainViewBuilder(
-            model,
+            patronMainModel,
             logoutHandler,
             catalogController.getView(),
             profileController.getView()
         );
 
-        refreshWhenSelected(model.catalogSelectedProperty(), catalogController::refresh);
-        refreshWhenSelected(model.profileSelectedProperty(), profileController::refresh);
+        refreshWhenSelected(patronMainModel.catalogSelectedProperty(), catalogController::refresh);
+        refreshWhenSelected(patronMainModel.profileSelectedProperty(), profileController::refresh);
     }
 
     private void refreshWhenSelected(BooleanProperty selected, Runnable refresh) {

@@ -11,8 +11,8 @@ public class CatalogController {
     private final CatalogViewBuilder viewBuilder;
     private final CatalogInteractor interactor;
 
-    public CatalogController() {
-        model = new CatalogModel();
+    public CatalogController(CatalogModel model) {
+        this.model = model;
         interactor = new CatalogInteractor();
         viewBuilder = new CatalogViewBuilder(model.getBooks(), this::borrowBook);
         displayAvailableBooks();

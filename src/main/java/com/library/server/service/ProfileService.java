@@ -9,8 +9,4 @@ public class ProfileService {
     public ProfileService() {
         this.dao = new LoanDAO();
     }
-
-
-
-
 }
