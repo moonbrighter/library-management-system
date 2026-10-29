@@ -1,22 +1,24 @@
 package com.library.shared.domainobjects;
 
+import java.time.LocalDate;
+
 public class Loan {
 
     private int loanId;
     private String title;
     private String author;
     private String borrowerId;
-    private String borrowDate;
-    private String dueDate;
-    private String returnDate;
+    private LocalDate borrowDate;
+    private LocalDate dueDate;
+    private LocalDate returnDate;
 
     public Loan(int loanId,
                 String title,
                 String author,
                 String borrowerId,
-                String borrowDate,
-                String dueDate,
-                String returnDate) {
+                LocalDate borrowDate,
+                LocalDate dueDate,
+                LocalDate returnDate) {
         this.loanId = loanId;
         this.title = title;
         this.author = author;
@@ -56,27 +58,27 @@ public class Loan {
         this.borrowerId = borrowerId;
     }
 
-    public String getBorrowDate() {
+    public LocalDate getBorrowDate() {
         return borrowDate;
     }
 
-    public void setBorrowDate(String borrowDate) {
+    public void setBorrowDate(LocalDate borrowDate) {
         this.borrowDate = borrowDate;
     }
 
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
-    public String getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(String returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 }

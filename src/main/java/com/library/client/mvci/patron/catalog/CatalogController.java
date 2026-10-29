@@ -18,8 +18,18 @@ public class CatalogController {
         displayAvailableBooks();
     }
 
-    private void borrowBook() {
-        System.out.println("Book borrowed");
+    private void borrowBook(int patronId, int bookId) {
+        Task<Void> fetchTask = new Task<>() {
+
+            @Override
+            protected Void call() throws Exception {
+                interactor.borrowBook(patronId, bookId);
+                return null;
+            }
+        };
+
+        Thread fetchThread = new Thread(fetchTask);
+        fetchThread.start();
     }
 
     private void displayAvailableBooks() {

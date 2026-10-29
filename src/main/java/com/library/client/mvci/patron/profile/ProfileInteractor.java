@@ -24,7 +24,7 @@ public class ProfileInteractor {
         return user;
     }
 
-    private List<Loan> getLoans(String userId) {
+    private List<Loan> getLoans(int userId) {
         return service.getLoans(userId);
     }
 

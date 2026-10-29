@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    String id;
+    int id;
     String role;
     String username;
     String firstName;
@@ -14,7 +14,7 @@ public class User {
     List<Loan> loans = new ArrayList<>();
 
     public User(
-            String id,
+            int id,
             String role,
             String username,
             String firstName,
@@ -31,11 +31,11 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

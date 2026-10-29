@@ -3,7 +3,7 @@ package com.library.shared.domainobjects;
 public class Librarian extends User {
 
     public Librarian(
-            String id,
+            int id,
             String role,
             String username,
             String firstName,

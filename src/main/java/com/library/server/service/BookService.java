@@ -1,18 +1,23 @@
 package com.library.server.service;
 
+import com.library.server.database.dao.BookCopyDAO;
 import com.library.server.database.dao.BookDAO;
+import com.library.server.database.dto.BookCopyDTO;
 import com.library.server.database.dto.BookDTO;
 import com.library.shared.domainobjects.Book;
+import com.library.shared.domainobjects.BookCopy;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class BookService {
 
-    private final BookDAO dao;
+    private final BookDAO bookDAO;
+    private final BookCopyDAO bookCopyDAO;
 
     public BookService() {
-        this.dao = new BookDAO();
+        this.bookDAO = new BookDAO();
+        this.bookCopyDAO = new BookCopyDAO();
     }
 
 //    public void saveBook(Book book) {
@@ -21,16 +26,21 @@ public class BookService {
 //    }
 
     public List<Book> getBooks() throws SQLException {
-        List<BookDTO> dtos = dao.getBooks();
+        List<BookDTO> dtos = bookDAO.getBooks();
         return dtos.stream()
                 .map(this::toDomain)
                 .toList();
     }
 
-//    public Book getBook(int bookId) {
-//        BookDTO dto = dao.findById(bookId);
-//        return toDomain(dto);
-//    }
+    public Book getBook(int bookId) {
+        BookDTO dto = bookDAO.getBook(bookId);
+        return toDomain(dto);
+    }
+
+    public BookCopy getBookCopy(int bookId) {
+        BookCopyDTO dto = bookCopyDAO.getCopy(bookId);
+        return toDomain(dto);
+    }
 
     private BookDTO toDTO(Book book) {
         BookDTO dto = new BookDTO();
@@ -42,13 +52,17 @@ public class BookService {
         return dto;
     }
 
+    private BookCopy toDomain(BookCopyDTO dto) {
+       return new BookCopy(dto);
+    }
+
     private Book toDomain(BookDTO dto) {
-        Book book = new Book();
-        book.setBookId(dto.getBookId());
-        book.setIsbn(dto.getIsbn());
-        book.setTitle(dto.getTitle());
-        book.setAuthor(dto.getAuthor());
-        book.setGenre(dto.getGenre());
-        return book;
+        return new Book(
+                dto.getBookId(),
+                dto.getIsbn(),
+                dto.getTitle(),
+                dto.getAuthor(),
+                dto.getGenre()
+        );
     }
 }

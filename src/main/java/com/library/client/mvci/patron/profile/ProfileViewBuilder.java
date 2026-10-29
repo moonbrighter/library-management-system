@@ -55,11 +55,11 @@ public class ProfileViewBuilder implements Builder<Region> {
         return result;
     }
 
-    private TableColumn<LoanModel, String> createDataColumn(
+    private <T> TableColumn<LoanModel, T> createDataColumn(
             String label,
-            Function<LoanModel, ObservableValue<String>> propertyExtractor
-            ) {
-        TableColumn<LoanModel, String> column = new TableColumn<>(label);
+            Function<LoanModel, ObservableValue<T>> propertyExtractor
+    ) {
+        TableColumn<LoanModel, T> column = new TableColumn<>(label);
         column.setCellValueFactory(cdf -> propertyExtractor.apply(cdf.getValue()));
         return column;
     }

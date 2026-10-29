@@ -1,5 +1,6 @@
 package com.library.client.mvci.patron.catalog;
 
+import com.library.client.session.Session;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -7,13 +8,17 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Builder;
 
+import java.util.function.BiConsumer;
+
 public class BorrowDialogViewBuilder implements Builder<Region> {
 
     private final BookModel book;
-    private final Runnable borrowHandler;
+    private final BiConsumer<Integer, Integer> borrowHandler;
     private final Runnable cancelHandler;
 
-    public BorrowDialogViewBuilder(BookModel book, Runnable borrowHandler, Runnable cancelHandler) {
+    public BorrowDialogViewBuilder(BookModel book,
+                                   BiConsumer<Integer, Integer> borrowHandler,
+                                   Runnable cancelHandler) {
         this.book = book;
         this.borrowHandler = borrowHandler;
         this.cancelHandler = cancelHandler;
@@ -44,7 +49,9 @@ public class BorrowDialogViewBuilder implements Builder<Region> {
 
     private Button borrowButton() {
         Button button = new Button("Confirm");
-        button.setOnAction(evt -> borrowHandler.run());
+        button.setOnAction(evt -> borrowHandler.accept(
+                Session.getInstance().getUserId(),
+                book.getBookId()));
         return button;
     }
 

@@ -3,7 +3,7 @@ package com.library.shared.domainobjects;
 public class Patron extends User {
 
     public Patron(
-            String id,
+            int id,
             String role,
             String username,
             String firstName,

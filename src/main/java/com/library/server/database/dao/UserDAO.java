@@ -29,7 +29,7 @@ public class UserDAO {
 
     private UserDTO mapUser(ResultSet rs) throws SQLException {
         return new UserDTO(
-                rs.getString("user_id"),
+                rs.getInt("user_id"),
                 rs.getString("role"),
                 rs.getString("username"),
                 rs.getString("first_name"),

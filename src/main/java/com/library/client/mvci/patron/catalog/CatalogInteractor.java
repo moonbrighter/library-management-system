@@ -1,17 +1,20 @@
 package com.library.client.mvci.patron.catalog;
 
-import com.library.shared.domainobjects.Book;
 import com.library.server.service.BookService;
+import com.library.server.service.LoanService;
+import com.library.shared.domainobjects.Book;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class CatalogInteractor {
 
-    private final BookService service;
+    private final LoanService loanService;
+    private final BookService bookService;
 
     public CatalogInteractor() {
-        service = new BookService();
+        loanService = new LoanService();
+        bookService = new BookService();
     }
 
     private BookModel toModel(Book book) {
@@ -23,10 +26,14 @@ public class CatalogInteractor {
                 book.getGenre());
     }
 
+    public void borrowBook(int patronId, int bookId) {
+        loanService.borrowBook(patronId, bookId);
+    }
+
     public List<BookModel> getBooks() {
         List<Book> books;
         try {
-            books = service.getBooks();
+            books = bookService.getBooks();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -1,5 +1,9 @@
 package com.library.server.database.dto;
 
+import com.library.shared.domainobjects.BookCopy;
+
+import java.time.LocalDate;
+
 public class LoanDTO {
 
     private int loanId;
@@ -8,9 +12,21 @@ public class LoanDTO {
     private String title;
     private String author;
     private String isbn;
-    private String borrowDate;
-    private String dueDate;
-    private String returnDate;
+    private LocalDate borrowDate;
+    private LocalDate dueDate;
+    private LocalDate returnDate;
+
+    public LoanDTO(int borrowerId, BookCopy bookCopy) {
+        loanId = 0;
+        this.borrowerId = borrowerId;
+        copyId = bookCopy.getId();
+        title = bookCopy.getTitle();
+        author = bookCopy.getAuthor();
+        isbn = bookCopy.getIsbn();
+        borrowDate = LocalDate.now();
+        dueDate = LocalDate.now().plusDays(14);
+        returnDate = null;
+    }
 
     public LoanDTO(
             int loanId,
@@ -19,9 +35,9 @@ public class LoanDTO {
             String title,
             String author,
             String isbn,
-            String borrowDate,
-            String dueDate,
-            String returnDate) {
+            LocalDate borrowDate,
+            LocalDate dueDate,
+            LocalDate returnDate) {
         this.loanId = loanId;
         this.borrowerId = userId;
         this.copyId = copyId;
@@ -81,27 +97,27 @@ public class LoanDTO {
         this.isbn = isbn;
     }
 
-    public String getBorrowDate() {
+    public LocalDate getBorrowDate() {
         return borrowDate;
     }
 
-    public void setBorrowDate(String borrowDate) {
+    public void setBorrowDate(LocalDate borrowDate) {
         this.borrowDate = borrowDate;
     }
 
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
-    public String getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(String returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 }

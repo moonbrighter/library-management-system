@@ -12,7 +12,8 @@ public class AuthService {
 
     public User authenticate(String username, String pw) {
         String hashedPw = hash(pw);
-        User user = toDomain(dao.getUser(username));
+        UserDTO userDTO = dao.getUser(username);
+        User user = toDomain(userDTO);
         if (username.equals(user.getUsername()) && hashedPw.equals(user.getHashedPw())) {
             return user;
         } else {
@@ -20,6 +21,7 @@ public class AuthService {
         }
     }
 
+    // TODO: Implement method
     private String hash(String pw) {
         return pw;
     }

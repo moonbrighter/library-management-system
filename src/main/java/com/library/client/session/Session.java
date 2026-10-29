@@ -28,6 +28,14 @@ public class Session {
         return currentUser;
     }
 
+    public int getUserId() {
+        if (currentUser == null) {
+            System.out.println("User cannot be found.");
+            return -1;
+        }
+        return currentUser.getId();
+    }
+
     public void endSession() {
         this.currentUser = null;
     }

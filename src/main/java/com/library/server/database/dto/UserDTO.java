@@ -1,7 +1,7 @@
 package com.library.server.database.dto;
 
 public class UserDTO {
-    String id;
+    int id;
     String role;
     String username;
     String firstName;
@@ -10,7 +10,7 @@ public class UserDTO {
     String createdAt;
 
     public UserDTO(
-            String id,
+            int id,
             String role,
             String username,
             String firstName,
@@ -27,11 +27,11 @@ public class UserDTO {
         this.createdAt = createdAt;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

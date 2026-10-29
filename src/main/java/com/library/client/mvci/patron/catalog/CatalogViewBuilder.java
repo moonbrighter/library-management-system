@@ -14,14 +14,16 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Builder;
 
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public class CatalogViewBuilder implements Builder<Region> {
 
     private final ObservableList<BookModel> tableItems;
-    private final Runnable borrowHandler;
+    private final BiConsumer<Integer, Integer> borrowHandler;
 
-    public CatalogViewBuilder(ObservableList<BookModel> tableItems, Runnable borrowHandler) {
+    public CatalogViewBuilder(ObservableList<BookModel> tableItems,
+                              BiConsumer<Integer, Integer> borrowHandler) {
         this.tableItems = tableItems;
         this.borrowHandler = borrowHandler;
     }
@@ -72,7 +74,9 @@ public class CatalogViewBuilder implements Builder<Region> {
         return column;
     }
 
-    private void createBorrowDialog(Window owner, BookModel book, Runnable borrowHandler) {
+    private void createBorrowDialog(Window owner,
+                                    BookModel book,
+                                    BiConsumer<Integer, Integer> borrowHandler) {
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.initOwner(owner);
