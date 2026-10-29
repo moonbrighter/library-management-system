@@ -7,7 +7,6 @@ import com.library.server.database.dto.BookDTO;
 import com.library.shared.domainobjects.Book;
 import com.library.shared.domainobjects.BookCopy;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class BookService {
@@ -25,7 +24,7 @@ public class BookService {
 //        dao.save(dto);
 //    }
 
-    public List<Book> getBooks() throws SQLException {
+    public List<Book> getBooks() {
         List<BookDTO> dtos = bookDAO.getBooks();
         return dtos.stream()
                 .map(this::toDomain)

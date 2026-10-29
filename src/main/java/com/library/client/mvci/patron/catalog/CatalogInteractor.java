@@ -1,10 +1,10 @@
 package com.library.client.mvci.patron.catalog;
 
+import com.library.server.database.exception.DataAccessException;
 import com.library.server.service.BookService;
 import com.library.server.service.LoanService;
 import com.library.shared.domainobjects.Book;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class CatalogInteractor {
@@ -34,7 +34,7 @@ public class CatalogInteractor {
         List<Book> books;
         try {
             books = bookService.getBooks();
-        } catch (SQLException e) {
+        } catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
         return books.stream()

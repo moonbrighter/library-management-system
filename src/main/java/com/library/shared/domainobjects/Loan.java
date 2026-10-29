@@ -20,10 +20,12 @@ public class Loan {
                 LocalDate dueDate,
                 LocalDate returnDate) {
         this.loanId = loanId;
+        this.borrowerId = borrowerId;
         this.title = title;
         this.author = author;
-        this.borrowerId = borrowerId;
+        this.borrowDate = borrowDate;
         this.dueDate = dueDate;
+        this.returnDate = returnDate;
     }
 
     public int getLoanId() {
