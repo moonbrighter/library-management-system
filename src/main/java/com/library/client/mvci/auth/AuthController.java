@@ -29,9 +29,17 @@ public class AuthController {
             }
         };
         fetchTask.setOnSucceeded(evt -> {
-            interactor.updateModelAfterLogin(fetchTask.getValue());
+            User user = fetchTask.getValue();
+            if (user == null) {
+                System.out.println("Login failed");
+                return;
+            }
+            interactor.updateModelAfterLogin(user);
             mainViewSwapper.run();
         });
+        fetchTask.setOnFailed(
+                evt -> fetchTask.getException().printStackTrace()
+        );
 
         Thread fetchThread = new Thread(fetchTask);
         fetchThread.start();

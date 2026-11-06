@@ -1,5 +1,6 @@
 package com.library.client.mvci.auth;
 
+import com.library.server.database.exception.InvalidCredentialsException;
 import com.library.shared.domainobjects.User;
 import com.library.server.service.AuthService;
 import com.library.client.session.Session;
@@ -14,7 +15,12 @@ public class AuthInteractor {
     }
 
     public User login() {
-        return service.authenticate(model.getUsername(), model.getPassword());
+        User user = service.authenticate(model.getUsername(), model.getPassword());
+        if (user != null) {
+            return user;
+        } else {
+            throw new InvalidCredentialsException("Invalid credentials");
+        }
     }
 
     public void logout() {
