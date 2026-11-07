@@ -15,18 +15,33 @@ import java.util.List;
 public class LoanDAO {
 
     public int saveLoan(LoanDTO dto) {
-        String query = "INSERT INTO loans (user_id, copy_id, borrow_date, due_date) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO loans (user_id, copy_id, borrow_date, due_date) VALUES (?, ?, ?, ?)";
+        String updateQuery = "UPDATE book_copies " +
+                             "SET status = 'BORROWED' " +
+                             "WHERE copy_id = ? AND status = 'AVAILABLE'";
 
         try (Connection con = Database.getInstance().getConnection();
-             PreparedStatement ps = con.prepareStatement(query)) {
+             PreparedStatement statement = con.prepareStatement(insertQuery);
+             PreparedStatement statement2 = con.prepareStatement(updateQuery)) {
+            con.setAutoCommit(false);
 
-            ps.setInt(1, dto.getBorrowerId());
-            ps.setInt(2, dto.getCopyId());
-            ps.setObject(3, dto.getBorrowDate());
-            ps.setObject(4, dto.getDueDate());
-            return ps.executeUpdate();
+            statement.setInt(1, dto.getBorrowerId());
+            statement.setInt(2, dto.getCopyId());
+            statement.setObject(3, dto.getBorrowDate());
+            statement.setObject(4, dto.getDueDate());
+
+            statement2.setInt(1, dto.getCopyId());
+
+            if (statement.executeUpdate() >= 1 && statement2.executeUpdate() >= 1) {
+                con.commit();
+                return 1;
+            } else {
+                con.rollback();
+                return 0;
+            }
+
         } catch (SQLException e) {
-            throw new DataAccessException("Failed to fetch loans", e);
+            throw new DataAccessException("Failed to save loan", e);
         }
     }
 

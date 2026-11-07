@@ -44,4 +44,6 @@ public class BookCopyDAO {
             throw new DataAccessException("Failed to fetch book copy: " + id, e);
         }
     }
+
+    public
 }
