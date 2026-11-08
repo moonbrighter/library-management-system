@@ -26,17 +26,19 @@ public class LoanService {
                 .toList();
     }
 
-    public void borrowBook(int patronId, int bookId) {
+    public boolean borrowBook(int patronId, int bookId) {
         BookCopy copy = bookService.getBookCopy(bookId);
         if (copy == null) {
             System.out.println("No available copies of book with id " + bookId);
-            return;
+            return false;
         }
 
         LoanDTO dto = new LoanDTO(patronId, copy);
         if (dao.saveLoan(dto) >= 1) {
             System.out.println("LoanService: Book borrowed successfully");
+            return true;
         }
+        return false;
     }
 
     // TODO: Fix domain object fields

@@ -13,7 +13,7 @@ public class CatalogController {
 
     public CatalogController(CatalogModel model) {
         this.model = model;
-        interactor = new CatalogInteractor();
+        interactor = new CatalogInteractor(model);
         viewBuilder = new CatalogViewBuilder(model.getBooks(), this::borrowBook);
         displayAvailableBooks();
     }
@@ -44,7 +44,7 @@ public class CatalogController {
         fetchTask.setOnSucceeded(evt -> {
             List<BookModel> books = fetchTask.getValue();
             System.out.println("Fetched " + books.size() + " books");
-            model.setBooks(books);
+            interactor.updateModel(books);
         });
         fetchTask.setOnFailed(evt -> {
             System.out.println("Fetch failed");

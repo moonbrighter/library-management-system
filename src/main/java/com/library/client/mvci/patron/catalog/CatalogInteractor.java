@@ -9,10 +9,12 @@ import java.util.List;
 
 public class CatalogInteractor {
 
+    private CatalogModel model;
     private final LoanService loanService;
     private final BookService bookService;
 
-    public CatalogInteractor() {
+    public CatalogInteractor(CatalogModel model) {
+        this.model = model;
         loanService = new LoanService();
         bookService = new BookService();
     }
@@ -27,7 +29,10 @@ public class CatalogInteractor {
     }
 
     public void borrowBook(int patronId, int bookId) {
-        loanService.borrowBook(patronId, bookId);
+        if (loanService.borrowBook(patronId, bookId)) {
+            List<BookModel> books = getBooks();
+            updateModel(books);
+        }
     }
 
     public List<BookModel> getBooks() {
@@ -40,5 +45,9 @@ public class CatalogInteractor {
         return books.stream()
                 .map(this::toModel)
                 .toList();
+    }
+
+    public void updateModel(List<BookModel> books) {
+        model.setBooks(books);
     }
 }
