@@ -5,22 +5,22 @@ import java.time.LocalDate;
 public class Loan {
 
     private int loanId;
+    private int bookCopyId;
     private String title;
     private String author;
-    private String borrowerId;
     private LocalDate borrowDate;
     private LocalDate dueDate;
     private LocalDate returnDate;
 
     public Loan(int loanId,
+                int bookCopyId,
                 String title,
                 String author,
-                String borrowerId,
                 LocalDate borrowDate,
                 LocalDate dueDate,
                 LocalDate returnDate) {
         this.loanId = loanId;
-        this.borrowerId = borrowerId;
+        this.bookCopyId = bookCopyId;
         this.title = title;
         this.author = author;
         this.borrowDate = borrowDate;
@@ -52,12 +52,12 @@ public class Loan {
         this.author = author;
     }
 
-    public String getBorrowerId() {
-        return borrowerId;
+    public int getBookCopyId() {
+        return bookCopyId;
     }
 
-    public void setBorrowerId(String borrowerId) {
-        this.borrowerId = borrowerId;
+    public void setBookCopyId(int borrowerId) {
+        this.bookCopyId = borrowerId;
     }
 
     public LocalDate getBorrowDate() {

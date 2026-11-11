@@ -45,6 +45,37 @@ public class LoanDAO {
         }
     }
 
+    public int returnLoan(int loanId, int copyId) {
+        String loansQuery = "UPDATE loans " +
+                              "SET return_date = ? " +
+                              "WHERE loan_id = ?";
+        String bookCopiesQuery = "UPDATE book_copies " +
+                             "SET status = 'AVAILABLE' " +
+                             "WHERE copy_id = ? AND status = 'BORROWED'";
+
+        try (Connection con = Database.getInstance().getConnection();
+             PreparedStatement statement = con.prepareStatement(loansQuery);
+             PreparedStatement statement2 = con.prepareStatement(bookCopiesQuery)) {
+            con.setAutoCommit(false);
+
+            statement.setObject(1, LocalDate.now());
+            statement.setInt(2, loanId);
+
+            statement2.setInt(1, copyId);
+
+            if (statement.executeUpdate() >= 1 && statement2.executeUpdate() >= 1) {
+                con.commit();
+                return 1;
+            } else {
+                con.rollback();
+                return 0;
+            }
+
+        } catch (SQLException e) {
+            throw new DataAccessException("Failed to return loan", e);
+        }
+    }
+
     public List<LoanDTO> getLoansByPatronId(int id) {
         List<LoanDTO> loans = new ArrayList<>();
         String query = "SELECT loan_id, loans.user_id, loans.copy_id, title, author, isbn, borrow_date, due_date, return_date" +

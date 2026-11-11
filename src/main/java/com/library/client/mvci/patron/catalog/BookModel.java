@@ -86,4 +86,9 @@ public class BookModel {
     public void setGenre(String genre) {
         this.genre.set(genre);
     }
+
+    @Override
+    public String toString() {
+        return title.get();
+    }
 }

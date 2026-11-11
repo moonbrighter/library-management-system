@@ -14,7 +14,7 @@ public class ProfileController {
     public ProfileController() {
         model = new ProfileModel();
         interactor = new ProfileInteractor(model);
-        viewBuilder = new ProfileViewBuilder(model);
+        viewBuilder = new ProfileViewBuilder(model, this::returnBook);
     }
 
     private void loadProfileDetails() {
@@ -28,6 +28,26 @@ public class ProfileController {
         fetchTask.setOnSucceeded(evt -> {
             interactor.updateModel(fetchTask.getValue());
             System.out.println(model.getName());
+        });
+        fetchTask.setOnFailed(evt -> fetchTask.getException().printStackTrace());
+
+        Thread fetchThread = new Thread(fetchTask);
+        fetchThread.start();
+    }
+
+    private void returnBook() {
+        Task<User> fetchTask = new Task<>() {
+
+            @Override
+            protected User call() throws Exception {
+                return interactor.returnBook();
+            }
+        };
+        fetchTask.setOnSucceeded(evt -> {
+            User user = fetchTask.getValue();
+            if (user != null) {
+                interactor.updateModel(user);
+            }
         });
         fetchTask.setOnFailed(evt -> fetchTask.getException().printStackTrace());
 

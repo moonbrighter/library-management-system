@@ -19,14 +19,20 @@ public class CatalogController {
     }
 
     private void borrowBook(int patronId, int bookId) {
-        Task<Void> fetchTask = new Task<>() {
+        Task<List<BookModel>> fetchTask = new Task<>() {
 
             @Override
-            protected Void call() throws Exception {
-                interactor.borrowBook(patronId, bookId);
-                return null;
+            protected List<BookModel> call() throws Exception {
+                return interactor.borrowBook(patronId, bookId);
             }
         };
+        fetchTask.setOnSucceeded(evt -> {
+            List<BookModel> books = fetchTask.getValue();
+            if (books != null) {
+                interactor.updateModel(books);
+            }
+        });
+        fetchTask.setOnFailed(evt -> fetchTask.getException().printStackTrace());
 
         Thread fetchThread = new Thread(fetchTask);
         fetchThread.start();

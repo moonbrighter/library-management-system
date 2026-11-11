@@ -41,13 +41,20 @@ public class LoanService {
         return false;
     }
 
-    // TODO: Fix domain object fields
+    public boolean returnBook(int loanId, int bookCopyId) {
+        if (dao.returnLoan(loanId, bookCopyId) >= 1) {
+            System.out.println("LoanService: Loan returned successfully");
+            return true;
+        }
+        return false;
+    }
+
     private Loan toDomain(LoanDTO dto) {
         return new Loan(
                 dto.getLoanId(),
+                dto.getCopyId(),
                 dto.getTitle(),
                 dto.getAuthor(),
-                dto.getIsbn(),
                 dto.getBorrowDate(),
                 dto.getDueDate(),
                 dto.getReturnDate()

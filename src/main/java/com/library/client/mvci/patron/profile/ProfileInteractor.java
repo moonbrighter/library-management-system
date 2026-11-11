@@ -43,4 +43,15 @@ public class ProfileInteractor {
     private List<LoanModel> toLoanModel(List<Loan> loans) {
         return loans.stream().map(LoanModel::new).toList();
     }
+
+    public User returnBook() {
+        LoanModel selected = model.getSelectedLoan();
+        if (selected == null) {
+            return null;
+        }
+        if (service.returnBook(selected.getLoanId(), selected.getBookCopyId())) {
+            return fetchProfile();
+        }
+        return null;
+    }
 }

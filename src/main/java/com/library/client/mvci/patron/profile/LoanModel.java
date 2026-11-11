@@ -11,6 +11,8 @@ import java.time.LocalDate;
 
 public class LoanModel {
 
+    private final int loanId;
+    private final int bookCopyId;
     private final StringProperty title = new SimpleStringProperty();
     private final StringProperty author = new SimpleStringProperty();
     private final ObjectProperty<LocalDate> borrowed = new SimpleObjectProperty<>();
@@ -18,11 +20,21 @@ public class LoanModel {
     private final ObjectProperty<LocalDate> returnedDate = new SimpleObjectProperty<>();
 
     public LoanModel(Loan loan) {
+        loanId = loan.getLoanId();
+        bookCopyId = loan.getBookCopyId();
         title.set(loan.getTitle());
         author.set(loan.getAuthor());
         borrowed.set(loan.getBorrowDate());
         dueDate.set(loan.getDueDate());
         returnedDate.set(loan.getReturnDate());
+    }
+
+    public int getLoanId() {
+        return loanId;
+    }
+
+    public int getBookCopyId() {
+        return bookCopyId;
     }
 
     public ObservableValue<String> titleProperty() {
@@ -43,5 +55,10 @@ public class LoanModel {
 
     public ObservableValue<LocalDate> returnedDateProperty() {
         return returnedDate;
+    }
+
+    @Override
+    public String toString() {
+        return title.get();
     }
 }

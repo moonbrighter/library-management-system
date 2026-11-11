@@ -28,11 +28,11 @@ public class CatalogInteractor {
                 book.getGenre());
     }
 
-    public void borrowBook(int patronId, int bookId) {
+    public List<BookModel> borrowBook(int patronId, int bookId) {
         if (loanService.borrowBook(patronId, bookId)) {
-            List<BookModel> books = getBooks();
-            updateModel(books);
+            return getBooks();
         }
+        return null;
     }
 
     public List<BookModel> getBooks() {

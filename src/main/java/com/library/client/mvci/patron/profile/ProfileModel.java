@@ -1,5 +1,7 @@
 package com.library.client.mvci.patron.profile;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -14,6 +16,7 @@ public class ProfileModel {
     private final StringProperty username = new SimpleStringProperty();
     private final StringProperty memberSince = new SimpleStringProperty();
     private final ObservableList<LoanModel> loans = FXCollections.observableArrayList();
+    private final ObjectProperty<LoanModel> selectedLoan = new SimpleObjectProperty<>();
 
     public ProfileModel() {}
 
@@ -71,5 +74,17 @@ public class ProfileModel {
 
     public void setLoans(List<LoanModel> newLoans) {
         loans.setAll(newLoans);
+    }
+
+    public ObjectProperty<LoanModel> selectedLoanProperty() {
+        return selectedLoan;
+    }
+
+    public LoanModel getSelectedLoan() {
+        return selectedLoan.get();
+    }
+
+    public void setSelectedLoan(LoanModel loan) {
+        selectedLoan.set(loan);
     }
 }
